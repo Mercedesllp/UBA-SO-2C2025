@@ -15,9 +15,9 @@ int children_pids[10] = {0};
 bool alive_children[10] = {true};
 
 int generate_random_number(){
-    //Funcion para cargar nueva semilla para el numero aleatorio
-    srand(time(NULL) ^ getpid());
-    return (rand() % n);
+  //Funcion para cargar nueva semilla para el numero aleatorio
+  srand(time(NULL) ^ getpid());
+  return (rand() % n);
 }
 
 int get_child_id(int pid){
@@ -31,6 +31,7 @@ int get_child_id(int pid){
 void sigchld_handler_father(){
   int child_pid = wait(NULL);
   int id = get_child_id(child_pid);
+
   // Lo marco como muerto al hijo que murió
   alive_children[id] = false;
   printf("Me mori soy %d y tenia el pid %d\n", id, child_pid);
@@ -39,6 +40,7 @@ void sigchld_handler_father(){
 void sigterm_handler_child(){
   int bala = generate_random_number();
   if (bala == numero_maldito){
+
     // Se manda automatico SIGCHLD porque se murió el hijo y el padre sigue
     exit(0);          
   }
@@ -89,7 +91,6 @@ int main(int argc, char const *argv[]){
   // no pasó por la función child()
   sleep(5);
 
-  // Consigna
   for(int k = 0; k < rondas; k++){
     for(int i = 0; i < n; i ++){
       father(i);
