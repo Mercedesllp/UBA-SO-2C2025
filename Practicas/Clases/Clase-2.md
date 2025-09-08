@@ -2,12 +2,6 @@
 
 ## Funciones útiles
 
-### int fork():
-Crea un nuevo proceso copiando el actual. Retorna 0 en el proceso hijo, y el PID del proceso creado en el proceso padre
-
-### void exit(int status):
-Termina el proceso actual utilizando el valor de status como el valor de retorno.
-
 ### int pipe(int descriptores[2]):
 Crea un pipe unidireccional, el cual tiene un extremo de escritura, y un extremo de lectura. Genera dos descriptores, representando a los extremos de lectura y escritura respectivamente, y los guarda en descriptores.
 

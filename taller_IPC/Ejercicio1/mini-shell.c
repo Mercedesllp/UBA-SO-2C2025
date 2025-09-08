@@ -14,7 +14,9 @@ static int run(char ***progs, size_t count)
 	//TODO: Guardar el PID de cada proceso hijo creado en children[i]
 	pid_t *children = malloc(sizeof(*children) * count);
 
-	//TODO: Pensar cuantos procesos necesito
+	//TODO: Pensar cuantos procesos necesito.
+
+	
 	//TODO: Pensar cuantos pipes necesito.
 
 	//TODO: Para cada proceso hijo:

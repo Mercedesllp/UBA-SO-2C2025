@@ -66,9 +66,9 @@ char*** separate_parameters(char **programs, int programs_count){
 }
 
 char*** parse_input(char **argv, int* programs_count){
-    char** programs = split_in_array('|', argv[1]);
+  char** programs = split_in_array('|', argv[1]);
 	*programs_count = count_in_array_split(programs);
 	char*** programs_with_parameters = separate_parameters(programs, *programs_count);
 	free(programs);
-    return programs_with_parameters;
+  return programs_with_parameters;
 }
