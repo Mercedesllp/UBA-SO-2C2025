@@ -1,6 +1,6 @@
 # Clase 5
 
-**Concatenación y concurrencia:** Problemas fundamentales (que los problemas dependan entre sí y que se puedan correr varios procesos al mismo tiempo).
+**Concatenación y concurrencia:** Problemas fundamentales (que los problemas dependan entre sí y que se puedan correr varios procesos al mismo tiempo y no saber quien arranca).
 
 **Programación distribuida:** Desarrollo de SW donde los componentes de una aplicación se ejecutan en múltiples computadoras independientes que se comunican entre sí a través de una red.
 
