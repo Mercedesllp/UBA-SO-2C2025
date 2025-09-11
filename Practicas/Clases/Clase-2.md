@@ -70,3 +70,8 @@ Hace algo similar a `select()`, espera a que uno de los fds en el conjunto de fd
 
 ### int fcntl(int fd, int op, ... /* arg */ );
 Realiza una de las operaciones determinada por `op` en el `fd` abierto. Se usa para indicar que los sockets del servidor sean no bloqueantes.
+
+
+
+
+read() si es menor a la cantidad de bytes que queria leer entonces estoy en el EOF

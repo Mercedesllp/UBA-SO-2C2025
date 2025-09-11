@@ -49,7 +49,63 @@ int main() {
     // La expresión debe ser recibida como un mensaje del cliente hacia el servidor.
     const char *expresion = "10+5";  
     int resultado = calcular(expresion);
-    printf("El resultado de la operación es: %d\n", resultado);
-    exit(0);
+
+    int server_socket;
+    int client_socket;
+    struct sockaddr_un server_addr;
+    struct sockaddr_un client_addr;
+    int slen = sizeof(server_addr);
+    int clen = sizeof(client_addr);
+
+    char msg[100];
+    char exitmsg[100] = "exit";
+
+    server_addr.sun_family = AF_UNIX;
+    strcpy(server_addr.sun_path, "unix_socket");
+    unlink(server_addr.sun_path);
+
+    server_socket = socket(AF_UNIX, SOCK_STREAM, 0);
+    if (bind(server_socket, (struct sockaddr *) &server_addr, slen) == -1) {
+        perror("Error");
+        exit(EXIT_FAILURE);
+    }
+    if (listen(server_socket, 1) == -1) {
+        perror("Error");
+        exit(EXIT_FAILURE);
+    }
+
+    printf("servidor: esperando conexión del cliente...\n");
+    client_socket = accept(server_socket, (struct sockaddr *) &client_addr, &clen);
+
+    if (client_socket == -1) {
+        perror("Error");
+        exit(EXIT_FAILURE);
+    }
+
+    int res_cuenta;
+
+    while(1) {
+        if (read(client_socket, &msg, sizeof(msg)) == 0) {
+            perror("Error");
+            exit(EXIT_FAILURE);
+        }
+
+        res_cuenta = calcular(msg);
+
+        printf("servidor: recibí %s del cliente \n", msg);
+
+        int hola = 4;
+        if (write(client_socket, &hola, sizeof(hola)) == -1) {
+            perror("Error");
+            exit(EXIT_FAILURE);
+        }
+
+        if(!strcmp(msg, exitmsg)){
+            break;
+        }
+    }
+    
+    close(client_socket);
+    exit(EXIT_SUCCESS);
 }
 
