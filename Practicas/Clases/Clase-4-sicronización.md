@@ -24,7 +24,6 @@ Devuelve el entero atómico sumado la cantidad especificada.
 ### set(unsigned int value): 
 Asigna al objeto un valor pasado por parámetro.
 
-
 ### sem(unsigned int value):
 Devuelve un nuevo semáforo inicializado en value.
 
