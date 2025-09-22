@@ -1,5 +1,11 @@
 # Clase 1
 
+## Conceptos
+
+**Programa:** Conjunto de instrucciones diseñadas para realizar una tarea, almacenadas en la memoria.
+
+**Proceso:** Instancia de un programa que está en ejecución, incluyendo su estado y recursos asignados.
+
 ## Funciones útiles
 
 ### int fork():

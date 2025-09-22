@@ -15,7 +15,8 @@ Abre el archivo indicado por path, retornando un descriptor que apunta a dicho a
 Cierra para el proceso actual el descriptor d pasado por parámetro. 
 
 ### int read(int d, void *b, size t s): 
-Lee s bytes del archivo apuntado por el descriptor d, y los escribe en el buffer b.
+Lee s bytes del archivo apuntado por el descriptor d, y los escribe en el buffer b.  
+`read() == 0` si estoy en el EOF
 
 ### int write(int d, void *b, size t s): 
 Lee s bytes del buffer b, y los escribe en el archivo apuntado por el descriptor d.
@@ -73,5 +74,3 @@ Realiza una de las operaciones determinada por `op` en el `fd` abierto. Se usa p
 
 
 
-
-read() si es menor a la cantidad de bytes que queria leer entonces estoy en el EOF
