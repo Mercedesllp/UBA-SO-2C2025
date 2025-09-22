@@ -15,10 +15,6 @@ b) Modificar el programa anterior para que cumpla con las siguientes condiciones
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
-// #include <sys/types.h>
-// #include <signal.h>
-#include <time.h>
-// #include <stdbool.h>
 
 void main(){
   int i, pid;
