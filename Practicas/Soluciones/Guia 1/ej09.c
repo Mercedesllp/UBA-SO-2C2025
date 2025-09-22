@@ -8,6 +8,11 @@ que si, el padre debe terminar con la ejecución de su hijo y finalizar. En caso
 se vuelve a repetir el proceso antes dicho.
 */
 
+/*
+Consultar si es mala práctica hacer que el handler de la señal se encargue que terminar el proceso 
+con un scanf.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
