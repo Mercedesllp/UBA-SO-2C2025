@@ -4,6 +4,10 @@ Ejercicio 5:
 a) Abraham -> Homero -> Bart
                      -> Lisa
                      -> Maggie
+
+b) Modificar el programa anterior para que cumpla con las siguientes condiciones: 
+    1) Homero termine sólo después que terminen Bart, Lisa y Maggie, y 
+    2) Abraham termine sólo después que termine Homero.                     
 */
 
 #include <stdlib.h>
@@ -27,7 +31,7 @@ void main(){
 
   if(pid != 0){ // Abraham
     printf("Soy Abraham\n");
-    wait(NULL);
+    wait(NULL); // Espero a que termine Homero
   }
 
   if(pid == 0){ // Homero
@@ -60,7 +64,7 @@ void main(){
 
     // Sigo siendo Homero
     if(pid != 0){
-      // Espero a que mueran todos los hijos
+      // Espero a que terminen todos los hijos
       for(int j = 0 ; j < 3; j ++){
         wait(NULL);
       }
