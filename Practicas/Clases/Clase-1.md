@@ -6,6 +6,8 @@
 
 **Proceso:** Instancia de un programa que está en ejecución, incluyendo su estado y recursos asignados.
 
+**Capabilities:** Los procesos pueden ser privilegiados o no privilegiados. Las capabilities son las unidades resultantes de la división de privilegios tradicionalmente con root, que pueden ser habilitadas o deshabilitadas.
+
 ## Funciones útiles
 
 ### int fork():
@@ -31,7 +33,45 @@ Bloquea al padre hasta que el hijo cambie de estado (si no se indica ningún sta
 
 ### pid t waitpid(pid t pid, int *status, int options): 
 Igual a wait pero espera al proceso correspondiente al pid indicado. 
+  
+### setcap
+Para cambiar las capabilities
 
-### int execve(const char *filename, char *const argv[], char *const envp[]):
-Sustituye la imagen de memoria del programa por la del programa ubicado en filename.
+### strace
+Genera una traza legible de las llamadas al sistema usandas por un programa dado. 
+
+- **-q** -> Omite algunos mensajes ineecesarios.
+
+- **-o \<archivo\>** -> Redirige la salida a \<archivo\>.
+
+- **-f** -> Muestra también la traza de los procesos hijos.
+
+### exitgroup()
+Termina la ejecución de (y de todos sus threads de haberlos) y no devuelve ningún valor.
+
+---
+### Familia exec
+Sustituyen la imagen de memoria del programa por la del programa ubicado en filename.
+
+- **l:** Indica que la función es varídica (la aridad es indefinida). Toma una secuencia de argumentos que se le pasa a la imágen a reemplazar. Es útil cuando sabemos de antemano la cantidad de parámetros a utilizar. El último parámetro debe ser NULL.
+
+- **v:** Indica que la función toma un array de punteros a char como los parámetros a usar.
+
+- **e:** Indica que se le pueden pasar variables de entorno tando de forma varídica como usando un array.
+
+- **p:** Indica que el nombre pasado en file, por defecto lo busque en el pathname que indica la variable de entorno PATH.
+
+#### int execl(const char *pathname, const char *arg, ... /*, (char *) NULL */);
+
+#### int execlp(const char *file, const char *arg, ... /*, (char *) NULL */);
+
+#### int execle(const char *pathname, const char *arg, ... /*, (char *) NULL, char *const envp[] */);
+
+#### int execv(const char *pathname, char *const argv[]);
+
+#### int execvp(const char *file, char *const argv[]);
+
+#### int execvpe(const char *file, char *const argv[], char *const envp[]);
+
+#### int execve(const char *filename, char *const argv[], char *const envp[]):
 
