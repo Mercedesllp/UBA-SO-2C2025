@@ -16,22 +16,22 @@ Crea un nuevo proceso copiando el actual. Retorna 0 en el proceso hijo, y el PID
 ### void exit(int status):
 Termina el proceso actual utilizando el valor de status como el valor de retorno.
 
-### pid t getppid(void): 
+### pid_t getppid(void): 
 Obtener el PID del padre del proceso actual.
 
-### pid t getpid(void): 
+### pid_t getpid(void): 
 Conseguir el PID del proceso actual.
 
-### sighandler_t signal(int signum, sighandler_t handler);
+### sighandler_t signal(int signum, sighandler_t handler):
 Redefinir comportamiento de algunas señales usando funciones void sin parámetros llamados handlers.
 
-### int kill(pid_t pid, int sig);
+### int kill(pid_t pid, int sig):
 Envía cualquier señal a cualquier grupo o proceso.
 
-### pid t wait(int *status): 
+### pid_t wait(int *status): 
 Bloquea al padre hasta que el hijo cambie de estado (si no se indica ningún status). El cambio de estado más común es cuando el hijo termina su ejecución.
 
-### pid t waitpid(pid t pid, int *status, int options): 
+### pid_t waitpid(pid_t pid, int *status, int options): 
 Igual a wait pero espera al proceso correspondiente al pid indicado. 
   
 ### setcap
@@ -46,7 +46,7 @@ Genera una traza legible de las llamadas al sistema usandas por un programa dado
 
 - **-f** -> Muestra también la traza de los procesos hijos.
 
-### exitgroup()
+### exit_group()
 Termina la ejecución de (y de todos sus threads de haberlos) y no devuelve ningún valor.
 
 ---
@@ -57,15 +57,15 @@ Sustituyen la imagen de memoria del programa por la del programa ubicado en file
 
 - **v:** Indica que la función toma un array de punteros a char como los parámetros a usar.
 
-- **e:** Indica que se le pueden pasar variables de entorno tando de forma varídica como usando un array.
+- **e:** Indica que se le pueden pasar variables de entorno tanto de forma varídica como usando un array.
 
 - **p:** Indica que el nombre pasado en file, por defecto lo busque en el pathname que indica la variable de entorno PATH.
 
-#### int execl(const char *pathname, const char *arg, ... /*, (char *) NULL */);
+#### int execl(const char *pathname, const char \*arg, ... /\*, (char *) NULL */);
 
-#### int execlp(const char *file, const char *arg, ... /*, (char *) NULL */);
+#### int execlp(const char *file, const char \*arg, ... /\*, (char *) NULL */);
 
-#### int execle(const char *pathname, const char *arg, ... /*, (char *) NULL, char *const envp[] */);
+#### int execle(const char *pathname, const char \*arg, ... /\*, (char *) NULL, char *const envp[] */);
 
 #### int execv(const char *pathname, char *const argv[]);
 
