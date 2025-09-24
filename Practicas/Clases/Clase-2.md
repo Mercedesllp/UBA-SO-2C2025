@@ -14,24 +14,21 @@ Abre el archivo indicado por path, retornando un descriptor que apunta a dicho a
 ### int close(int d): 
 Cierra para el proceso actual el descriptor d pasado por parámetro. 
 
-### int read(int d, void *b, size t s): 
+### int read(int d, void *b, size_t s): 
 Lee s bytes del archivo apuntado por el descriptor d, y los escribe en el buffer b.  
-`read() == 0` si estoy en el EOF
+`read(...) == 0` si estoy en el EOF.
 
-### int write(int d, void *b, size t s): 
+### int write(int d, void *b, size_t s): 
 Lee s bytes del buffer b, y los escribe en el archivo apuntado por el descriptor d.
 
-### printf(char* fmt, ...): 
+### int printf(char* fmt, ...): 
 Función variádica que toma un string de formato fmt y cero o más parámetros adicionales, y escribe el resultado en stdout.
 
-### int execlp(const char *file, const char *arg, ...): 
-Sustituye la imagen de memoria del programa por la del programa ubicado en file. El const char *arg y la subsiguiente elipsis se pueden pensar como los argumentos arg0, arg1, ..., argn del programa a ejecutar. Por convención, arg0 debería ser el nombre del binario (file). La lista de argumentos debe ser terminada con NULL ya que es una función variádica.
-
 ### int socket(int domain, int type, int protocol):
-Crea un nuevo socket. Vamos a usar la constante AF UNIX y el tipo SOCK STREAM. El tercer parámetro suele ser 0, indicando al SO que use la configuración predeterminada de protocolos.
+Crea un nuevo socket. Vamos a usar la constante AF_UNIX y el tipo SOCK_STREAM. El tercer parámetro suele ser 0, indicando al SO que use la configuración predeterminada de protocolos.
 
-### int bind(int fd, sockaddr* a, socklen t len):
-Asigna una direcci´on (nombre o IP y puerto) al socket.
+### int bind(int fd, sockaddr* a, socklen_t len):
+Asigna una dirección (nombre o IP y puerto) al socket.
 
 ```
 struct sockaddr_in {
@@ -45,25 +42,22 @@ struct sockaddr_in {
 ### int listen(int fd, int backlog):
 Setea al socket del servidor como un socket pasivo que recibirá conexiones entrantes. Se maneja una cola para poder recibir varias conexiones entrantes.
 
-### int accept(int fd, sockaddr* a, socklen t* len):
+### int accept(int fd, sockaddr* a, socklen_t* len):
 Extrae de la cola una solicitud de conexión y establece la comunicación entre los sockets. Se bloquea en caso de no existir conexiones pendientes. Devuelve un nuevo fd para conexión.
 
-### int socket(int domain, int type, int protocol):
-Crear un nuevo socket.
-
-### int connect(int fd, sockaddr* a, socklen t* len):
+### int connect(int fd, sockaddr* a, socklen_t* len):
 Conectarse a un socket remoto que debe estar escuchando.
 
-### ssize t send(int s, void *buf, size t len, int flags):
+### ssize_t send(int s, void *buf, size_t len, int flags):
 Transmitir un mensaje a un socket.
 
-### ssize t recv(int s, void *buf, size t len, int flags):
-Recibir mensajes de un socket
+### ssize_t recv(int s, void *buf, size_t len, int flags):
+Recibir mensajes de un socket.
 
 ### int select(int nfds, fd_set *_Nullable restrict readfds, fd_set *_Nullable restrict writefds, fd_set *_Nullable restrict exceptfds, struct timeval *_Nullable restrict timeout):
 Le permite a un programa monitorear varios fds, esperando a que uno o más de uno se ponga en _ready_ para algún tipo de opereación de I/O
 
-### int pselect(int nfds, fd_set *_Nullable restrict readfds, fd_set *_Nullable restrict writefds, fd_set *_Nullable restrict exceptfds, const struct timespec *_Nullable restrict timeout, const sigset_t *_Nullable restrict sigmask):
+### int pselect(int _nfds_, fd_set *_Nullable restrict _readfds_, fd_set *_Nullable restrict _writefds_, fd_set *_Nullable restrict _exceptfds_, const struct timespec *_Nullable restrict _timeout_, const sigset_t *_Nullable restrict _sigmask_):
 Esta syscall permite a una aplicación esperar de manera segura hasta que un fd se ponga en _ready_ o hasta que se reciba una señal. Es casi idéntica a `select()` pero con las diferencia de que usa un `struct timespec` el cual tiene segundos y nanoseguntos; no modifica el `timeout`; y tiene una `sigmmask`
 
 ### int poll(struct pollfd *fds, nfds_t nfds, int timeout);
