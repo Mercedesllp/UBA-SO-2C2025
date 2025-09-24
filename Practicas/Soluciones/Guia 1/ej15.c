@@ -1,6 +1,11 @@
 /*
 Ejercicio 15:
+Escribir el código de un programa que se comporte de la misma manera que la ejecución del
+comando “ls -al | wc -l” en una shell. No está permitido utilizar la función system, y cada uno
+de los programas involucrados en la ejecución del comando deberá ejecutarse como un subproceso.
 
+RTA:
+No creo que lo que hice era la idea de lo que habia que hacer
 
 */
 

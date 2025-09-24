@@ -40,6 +40,10 @@ void main(){
 **b)**
 
 ``` C
+/*
+Revisar, creo que esta mal hecho pq ¿Cómo esta llegandole al hijo 1 quién es el hijo 2?
+*/
+
 void main(){
   int nro;
   pid_t pid_hijo1 = fork();
@@ -58,6 +62,7 @@ void main(){
 
   } else if (pid_hijo2 == 0){ // Soy el hijo 2
     nro = 2;
+    pid_t pid_padre = getppid();
 
     while(nro < 50){
       brecive(pid_hijo1);
@@ -137,6 +142,10 @@ Creería que el tamaño podría ser 0 al ser que `send()` y `recieve()` no son b
 Si tengo un proceso que tiene que recibir mensajes de varias fuentes y el cliente antes de continuar ejecutando debe recibir su respuesta (por ejemplo un sistema de loggeo de una página).
 
 ### Ejercicio 15:
+Revisar.
+
+### Ejercicio 16:
+
 
 
 
