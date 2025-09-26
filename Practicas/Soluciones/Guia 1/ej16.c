@@ -2,11 +2,21 @@
 Ejercicio 16:
 Implementar el inciso b del ejercicio 11 usando pipes en C. Determinar si el comportamiento del
 intercambio de mensajes obtenido es igual al especificado por las funciones bsend y breceive.
+
+RTA:
+
+Necesito las siguientes conexiones:
+
+Padre escribe a Hijo1
+Hijo1 escribe a Hijo2
+Hijo2 escribe a Padre
 */
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <sys/types.h>
 
+enum{READ,WRITE};
 int nro;
 pid_t pid_hijo1, pid_hijo2;
 
@@ -32,28 +42,15 @@ void hijo2(){
 
 void main(){
   nro = 0;
+  int pipes[3][2];
+
+  for(int i = 0; i < 3; i++){
+    pipe(pipes[i]);
+  }
+
+  dup2(pipes[0][WRITE],STD);
   pid_hijo1 = fork();
   
-  // Soy el hijo 1
-  if(pid_hijo1 == 0){
-    hijo1();
-  } else{ // Soy el padre
-    pid_hijo2 = fork();
-
-    if(pid_hijo2 == 0){
-      hijo2();
-    } else{
-      while(nro < 50){
-        bsend(pid_hijo1, nro);
-        brecive(pid_hijo2);
-        nro += 3;
-      }
-
-      // Espero a que se mueran los hijos
-      wait(NULL);
-      wait(NULL);
-    }
-  }
 
   exit(EXIT_SUCCESS);
 }
