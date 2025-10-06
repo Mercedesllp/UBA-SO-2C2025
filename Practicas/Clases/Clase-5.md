@@ -42,10 +42,36 @@ En C se provee una **memory API** que permite a los programadores pedir y libera
   - `free()` para liberar.
 
 
+El **Sistema Operativo** debe:
+
+  - Administrar eficientemente la memoria no utilizada.
+  - Manejar los pedidos de asignación y liberación.
+  - Evitar y reducir la fragmentación.
+
+**Splitting:** Si un requerimiento de memoria es menor que una porción de memoria libre, se retorna la primera parte y se mantiene el resto en la free list.
+
+**Coalescing:** Cuando la memoria es liberada, se verifica si las porciones aledañas también están libres, y en ese caso se mergean en una única porción más grande. (reduce la fragmentación externa).
+
+Al asignar memoria se suele almacenar un header con el tamaño del bloque y alguna metadata más.
+
+**Paginación a demanda:** en lugar de cargar el programa entero en memoria física para poder ejecutarlo, cargar **sólo las páginas que son necesarias en cada momento**.
+
+**Dirty bit:** Se usa para indicar que una página fue modificada y que hay que bajarla a disco.
+
+**Thrashing:** Lo que hace un proceso que pasa más tiempo cargando y descargando páginas que ejecutando.
+
+**Localidad:** Conjunto de páginas que se usan activamente al mismo tiempo. Esta es clave para el diseño inteligente de reemplazos de páginas.
+
+**Localidad temporal:** las páginas más recientemente usadas tienden a ser reusadas en el corto plazo.
+
+**Localidad espacial:** las direcciones cercanas entre sí suelen accederse juntas.
+
 ## Funciones útiles
 
-### void* malloc(size_t size)
+### void* malloc(_size_t_ size)
 
-### calloc(size_t nmemb, size_t size)
+### void* calloc(_size_t_ nmemb, _size_t_ size)
 
-### realloc
+### void* realloc(_void* \_Nullable_ ptr, _size_t_ size)
+
+### void free (_void* \_Nullable_ ptr)
