@@ -26,6 +26,7 @@ Tenemos **primitivas de sincronización** (las cuales se encargan de la sincroni
 
 Un driver no se linkea conta bibliotecas, asi que solo se pueden usar funciones que sean parte del kernel.
 
+**Módulo:** Piezas de código que pueden ser cargados/descargados en el kernel en tiempo de ejecución para extender la funcionalidad  sin necesidad de reiniciar el sistema.
 
 ## La API de un Driver
 
@@ -65,4 +66,15 @@ Permite asociar el procedimiento handler a la interrupción IRQ. Devuelve `IRQ_E
 `int free_irq(int irq)`  
 Libera la interrupción IRQ del procedimiento asociado.
 
+`printk()`  
+Se comporta de manera similar a la función `printf()` de la _libc_, pero permite indicar niveles de prioridad:
+- `KERN_ALET` -> problema de atención inmediata
+- `KERN_INFO` -> mensaje con información
+- `KERN_DEBUG` -> mensaje de _debug_
 
+`module_init()`  
+Función de inicialización del módulo. La función de inicialización es llamada al arrancar el sistema y/o al insertar el módulo.  
+Su rol es registar recursos, inicializar hardware, reservar espacio en memoria para estructuras de datos, etc. Si todo salió bien, tiene que devolver 0; si no, tiene que volver atrás lo que cambió y devolver algo distinto de cero.
+
+`module_exit()`  
+se indica dónde encontrar la función de “limpieza” del módulo. Se llama a esta antes de quitar el módulo. Se ocupa de deshacer/limpiar todo lo que la función de inicialización y el resto del módulo usaron
