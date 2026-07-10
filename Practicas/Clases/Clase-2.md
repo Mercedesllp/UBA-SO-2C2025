@@ -1,5 +1,14 @@
 # Clase IPC
 
+## Conceptos
+Dominios de dirección mas usados:
+- Unix Domain
+- Internet Domain
+
+Hay dos tipos de sockets:
+- Stream Sockets
+- Datagram Sockets
+
 ## Funciones útiles
 
 ### int pipe(int descriptores[2]):

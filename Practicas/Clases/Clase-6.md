@@ -16,7 +16,11 @@
 
 **Software para E/S:** En el nivel **usuario**, se tienen bibliotecas (por ejemplo **stdio** en C), luego se tienen los módulos de nivel **kernel** los cuales serían los drivers y para el nivel **hardware** se tiene el firmware.
 
-**Handler:** También conocidos como rutinas de servicios de interrupciones (**ISR**) son callback functions que se alojan en el driver que se encargan de manejar la interrupción.
+El **firmware** es un programa informático de bajo nivel que controla los circuitos electrónicos de un dispositivo de hardware
+
+**Handler:** También conocidos como rutinas de servicios de interrupciones (**ISR**) son **callback functions** que se alojan en el driver que se encargan de manejar la interrupción.
+
+A nivel de usuario se tiene una interfaz simplificada que consiste en procedimientos/funciones alojados en bibliotecas (estan en el espacio de usuario stdio pej).
 
 Un driver corre dentro del contexto de un proceso (o sea, puede acceder a sus datos), para punteros que nos pasa el usuario usamos `copy_from_user()` y `copy_to_user()`.
 
@@ -24,7 +28,7 @@ Varios procesos pueden querer **ejecutar el driver a la vez**, por esto se gener
 
 Tenemos **primitivas de sincronización** (las cuales se encargan de la sincronización de recursos compartidos por distintos procesos o threads). Estas y las **estructuras de datos** que pueda llegar a necesitar se inicializan al cargar el driver en el kernel.
 
-Un driver no se linkea conta bibliotecas, asi que solo se pueden usar funciones que sean parte del kernel.
+Un driver no se linkea conta bibliotecas, asi que solo se pueden usar funciones que sean parte del kernel, por lo que las primitivas y estructuras de datos se deben inicializar al cargar el driver en el kernel.
 
 **Módulo:** Piezas de código que pueden ser cargados/descargados en el kernel en tiempo de ejecución para extender la funcionalidad  sin necesidad de reiniciar el sistema.
 

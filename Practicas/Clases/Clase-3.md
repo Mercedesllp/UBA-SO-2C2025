@@ -16,7 +16,7 @@ Muchos procesos (técnicamente sus PCB's) se mantienen en memoria al mismo tiemp
 
 **Preemptive o no cooperativo:** Con desalojo. El scheduler puede determinar cuando sacarle la CPU a un proceso.
 
-## Criterios y objetivos
+## Criterios y objetivos de scheduler
 
 **Uso de CPU: (Maximizar)** Mantener la CPU tan ocupada como sea posible.
 
@@ -64,3 +64,15 @@ Es lo más optimo respecto al waiting time, pero no podemos saber de antemano la
 - Suele separar a los procesos según sus ráfagas de CPU: a mayor uso de CPU, más baja la prioridad.
 
 - Puede implementar _aging_ para evitar _starvation_ de los procesos con menor prioridad.
+
+## Scheduling de Tiempo Real
+
+- Sistemas **soft real-time**: No dan garantías sobre cuándo se va a poner a ejecutar un proceso RT. Solo que se van a ejecutar con más prioridad.
+
+- Sistemas **hard real-time**: Tienen requerimientos más estrictos, una tarea crítica debe ser ejecutada dentro de un _deadline_.
+
+El tiempo que pasa entre que ocurre un evento hasta que el proceso RT se ejecuta es llamado **event latency**.
+
+**Earliest Deadline First (EDF):**
+
+- Asigna prioridades dinámicamente según el deadline. Cuanto más pronto el deadline, más prioridad.

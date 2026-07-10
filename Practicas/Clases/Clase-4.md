@@ -12,11 +12,12 @@
 
 **Semáforo:** Tipo abstracto de datos que permite controlar el acceso de múltiples procesos a un recurso común. La única manera de interactuar con el semáforo es mediante las primitivas `wait()` y `signal()`.
 
+**Sección crítica:** Llamamos sección crítica a la parte del programa que accede a memoria compartida, y queremos que ejecute atómicamente.
 
 ## Funciones útiles
 
 ### getAndInc():
-Devuelve el entero at´omico sumado 1.
+Devuelve el entero atómico sumado 1.
 
 ### getAndAdd(unsigned int value): 
 Devuelve el entero atómico sumado la cantidad especificada.

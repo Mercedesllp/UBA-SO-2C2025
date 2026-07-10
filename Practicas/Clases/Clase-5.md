@@ -15,7 +15,7 @@ El **sistema operativo** es responsable de:
 
 El **espacio de direcciones** (es una vista privada de la memoria) de cada proceso se conforma de **code, stack, heap y data**.
 
-Hay distintas maneras para el manejo de las traducciones:
+Hay distintas maneras para el manejo de las traducciones de memoria virtual a fisica:
   - **Base y límite**: La CPU tiene un único set de registros base y límite. Durante un contexto switch, el SO debe cargar los valores del nuevo proceso.
   - **Segmentación**: Cada espacio de direcciones se separa en segmentos lógicos de distinto tamaño.
   - **Paginación**: La memoria virtual se divide en tamaño fijo (4kb comunmente). La memoria física se divide en marcos de páginas del mismo tamaño. Como cada página se mapea de manera independiente no es necesario que sea contigua la memoria asignada. Evita la fragmentación externa.
@@ -58,9 +58,9 @@ Al asignar memoria se suele almacenar un header con el tamaño del bloque y algu
 
 **Dirty bit:** Se usa para indicar que una página fue modificada y que hay que bajarla a disco.
 
-**Thrashing:** Lo que hace un proceso que pasa más tiempo cargando y descargando páginas que ejecutando.
+**Thrashing:** Lo que hace un proceso que pasa más tiempo cargando y descargando páginas que ejecutando. Para mitigar algunos SO corren un proceso **Out-Of-Memory killer** (ver)
 
-**Localidad:** Conjunto de páginas que se usan activamente al mismo tiempo. Esta es clave para el diseño inteligente de reemplazos de páginas.
+**Localidad:** Conjunto de páginas que se usan activamente al mismo tiempo. Esta es clave para el diseño inteligente de reemplazos de páginas. 
 
 **Localidad temporal:** las páginas más recientemente usadas tienden a ser reusadas en el corto plazo.
 
