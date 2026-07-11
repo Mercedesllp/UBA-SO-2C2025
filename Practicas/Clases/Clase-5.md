@@ -22,9 +22,9 @@ Hay distintas maneras para el manejo de las traducciones de memoria virtual a fi
   
 **Fragmentación interna:** Si se asigna memoria de más, la memoria no utilizada es desperdiciada ya que no pueden usarla otros procesos.
 
-**Segmentation fault:** Se genera al intentar acceder a memoria por fuera del segmento válido.
-
 **Fragmentación externa:** Hay suficiente espacio libre pero está dispersa, dificultando asignar segmentos grandes de memoria.
+
+**Segmentation fault:** Se genera al intentar acceder a memoria por fuera del segmento válido.
 
 En C se provee una **memory API** que permite a los programadores pedir y liberar memoria.
 
@@ -40,7 +40,6 @@ En C se provee una **memory API** que permite a los programadores pedir y libera
   - El programador reserva y libera memoria manualmente.
   - `malloc()` para reservar.
   - `free()` para liberar.
-
 
 El **Sistema Operativo** debe:
 

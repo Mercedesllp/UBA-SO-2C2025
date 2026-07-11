@@ -1,13 +1,11 @@
 # Clase 7
-
 El **sistema de archivos** es la parte del SO que nos permite administrar y ordenar los archivos dentro de un medio de almacenamiento.
 
 Las lecturas y escrituras a un medio de almacenamiento se hacen en unidades lógicas llamadas **bloques**. Estos son numerados a partir del 0 y tienen una dirección lógica/ LBA (Logical Block Address)
 
 ![alt text](image.png)
 
-El inodo del directorio root es distinguido: es
-siempre el inodo número 2 en Ext2.
+El inodo del directorio root es distinguido: es siempre el inodo número 2 en Ext2.
 
 Links:
 
@@ -25,5 +23,3 @@ Pára encontrar un inodo específico del cual sé el nro (n):
 - i / inodos_por_bloque = bloque_del_inodo
 - Del bloque_del_inodo busco el offset (i mod inodos_por_bloque).
 
-
-## Funciones útiles

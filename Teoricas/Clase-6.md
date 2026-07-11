@@ -1,3 +1,5 @@
+# Memoria
+
 La memoria también se comparte, no solo para comunicar procesos, si no también para implementar la multiprogramación.
 
 Swapping: Pasar a disco el espacio de memoria de los procesos que no se están ejecutando.
