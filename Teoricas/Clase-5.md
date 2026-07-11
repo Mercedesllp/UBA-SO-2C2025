@@ -8,13 +8,13 @@
 
 **Race condition:** Cuando el resultado depende de la secuencia o el momento en que múltiples procesos o hilos acceden y manipulan un recurso compartido.
 
-**Sección crítica:** Un cacho de código tal que 
+**Sección crítica:** Pedazo de código tal que solo hay un proceso a la vez; todo proceso que esté esperando entrar a CRIT va a entrar; ningún proceso fuera de CRIT puede bloquear a otro.
 
 - Solo hay un proceso a la vez en CRIT.
 - Todo ṕroceso que esté esperando entrar a CRIT va a entrar.
 - Ningún proceso fuera de CRIT puede bloquear a otro.
 
-**TestAndSet:** Establece atómicamente el valor de una variable entera en 1 (el lugar de memoria que utiliza lo determinás vos en un lugar de la memoria compartida). Es para saber si un proceso puede o no entrar a una sección crítica.
+**TestAndSet (TAS):** Establece atómicamente el valor de una variable entera en 1 (el lugar de memoria que utiliza lo determinás vos en un lugar de la memoria compartida). Es para saber si un proceso puede o no entrar a una sección crítica.
 
 **Busy waiting:** Gastar CPU cuando no es necesario (Poner en un while una función de testandset()).
 
@@ -28,13 +28,10 @@
 
 **Deadlock:** Se traban los procesos entre sí esperando al otro.
 
-**Condiciones de Coffman:** $ condiciones para la existencia de un deadelock:
+**Condiciones de Coffman:** condiciones para la existencia de un deadelock:
 
-- Exclusión mutua: Un recurso no puede estar asignado a más de un proceso.
-
-- Hold and wait: Los procesos que ya tienen algún recurso pueden solicitar otro.
-
-- No preemption: No hay mecanismo compulsivo para sacarle los recursos a un proceso.
-
-- Espera circular: Tiene que haber un ciclo de n >= 2 procesos, tal que P_i espera un recurso que tiene P_{i+1]
-
+- **Exclusión mutua:** Un recurso no puede estar asignado a más de un proceso.
+- **Hold and wait:** Los procesos que ya tienen algún recurso pueden solicitar otro.
+- **No preemption:** No hay mecanismo compulsivo para quitarle los
+recursos a un proceso.
+- **Espera circular:** Tiene que haber un ciclo de N $\geq$ 2 procesos, tal que Pi espera un recurso que tiene Pi+1.

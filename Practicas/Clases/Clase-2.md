@@ -1,4 +1,4 @@
-# Clase IPC
+# Clase 2
 
 ## Conceptos
 Dominios de dirección mas usados:

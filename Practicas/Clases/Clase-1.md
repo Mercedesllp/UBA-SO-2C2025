@@ -8,6 +8,22 @@
 
 **Capabilities:** Los procesos pueden ser privilegiados o no privilegiados. Las capabilities son las unidades resultantes de la división de privilegios tradicionalmente con root, que pueden ser habilitadas o deshabilitadas.
 
+**Subreaper:** Procesos que se pueden autodeclarar como padres de procesos huérfanos que sean descendientes suyos.
+
+**POSIX:** Estándar de mecanismos de interacción con el sistema operativo.
+
+Si no se hace `wait()` del proceso hijo, cuando muere el hijo, el proceso queda en un estado zombie.
+
+El SO hace copias _lazy_. Tanto el padre como el hijo tendrán las mismas páginas físicas hasta que alguna de ellas cambia el contenido, ahí se asigna una página física distinta para el proceso que modifica la memoria (*copy on write*) Sólo se comparten las páginas en modo lectura.
+
+`execve()`: Sustituye la imagen de memoria del programa por la del programa ubicado en filename.
+
+Cada letra luego del prefijo `exec`, nos indica un significado particular de loque hace cada función.
+
+En Linux se puede enviar señales desde un proceso no root a uno root, ya que divide los privilegios tradicionalmente asociados con root en distintas unidades llamadas *capabilities*, que pueden ser habilitadas o deshabilitadas.
+
+`strace`: Herramienta que nos permite generar una traza legible de las llamadas al sistema usadas por un programa dado.
+
 ## Funciones útiles
 
 ### int fork():

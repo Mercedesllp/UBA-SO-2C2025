@@ -1,4 +1,4 @@
-# Seguridad
+# Clase 8
 
 **Bugs de seguridad** son aquellos que exponen más funcionalidad o distinta al usuario que la que el programa dice tener.
 
