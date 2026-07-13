@@ -6,6 +6,8 @@
 
 **Proceso:** Instancia de un programa que está en ejecución, incluyendo su estado y recursos asignados.
 
+En Linux se puede enviar señales desde un proceso no root a uno root, ya que divide los privilegios tradicionalmente asociados con root en distintas unidades llamadas *capabilities*, que pueden ser habilitadas o deshabilitadas.
+
 **Capabilities:** Los procesos pueden ser privilegiados o no privilegiados. Las capabilities son las unidades resultantes de la división de privilegios tradicionalmente con root, que pueden ser habilitadas o deshabilitadas.
 
 **Subreaper:** Procesos que se pueden autodeclarar como padres de procesos huérfanos que sean descendientes suyos.
@@ -20,17 +22,15 @@ El SO hace copias _lazy_. Tanto el padre como el hijo tendrán las mismas págin
 
 Cada letra luego del prefijo `exec`, nos indica un significado particular de loque hace cada función.
 
-En Linux se puede enviar señales desde un proceso no root a uno root, ya que divide los privilegios tradicionalmente asociados con root en distintas unidades llamadas *capabilities*, que pueden ser habilitadas o deshabilitadas.
-
 `strace`: Herramienta que nos permite generar una traza legible de las llamadas al sistema usadas por un programa dado.
 
 Cuando el SO comienza, lanza un proceso que se suele llamar `init` o `systemd`.
 
-- `fork()` crea un proceso exactamente igual al actual. Retorna el pid del hijo para el padre y 0 en el hijo.
+`fork()` crea un proceso exactamente igual al actual. Retorna el pid del hijo para el padre y 0 en el hijo.
 
 **Preemption:** Cuando se acaba el quantum, le toca el turno al siguiente proceso.
 
-**PCB:** Process Control Block - Donde se encuenta el IP y otras cosas del proceso.
+**PCB (Process Control Block):** Donde se encuenta el IP y otras cosas del proceso.
 
 Las **syscalls** proveen una interfaz a los servicios brindados por el sistema operativo: **la API (Application Programming Interface)** del SO.
 
@@ -54,15 +54,15 @@ carga del sistema = cantidad de procesos listos
 
 tabla de procesos = lista de PCBs
 
-señales = mecanismo que incorporan los sistemas operativos POSIX que permiten notificar a un proceso la ocurrencia de un evento.
+**Señales:** mecanismo que incorporan los sistemas operativos POSIX que permiten notificar a un proceso la ocurrencia de un evento.
 
 ## IPC
 
-File Descriptor: Índices de una tabla que indica los archivos abiertos por el proceso.
+**File Descriptor:** Índices de una tabla que indica los archivos abiertos por el proceso.
 
 Los fd se heredan de un proceso padre a hijo al usar `fork()` y se mantienen en la llamada a `execve`
 
-**Pipes:** Son un canal que se puede interpretar como un byte stream
+**Pipes:** Son un canal que se puede interpretar como un byte stream.
 
 **Socket:** Interfaz de comunicación entre procesos que permite el intercambio de datos. Hay syscalls para manejarlos de manera homogénea independientemente del tipo.
 
@@ -78,6 +78,8 @@ Hay dos tipos de sockets:
 
 Muchos procesos (técnicamente sus PCB's) se mantienen en memoria al mismo tiempo. Cuando se libera la CPU se debe elegir otro proceso de la cola de ready y darle CPU. O sea **CPU Scheduling**.
 
+**Scheduler del SO:** Responsable de seleccionar un proceso de todos los que esten ready y darle CPU para que se procese.
+
 **Ecuanimidad (Fairness):** Cada proceso reciba una dosis justa de CPU.
 
 **Eficiencia:** tratar de que la CPU esté ocupada todo el tiempo.
@@ -90,7 +92,7 @@ Muchos procesos (técnicamente sus PCB's) se mantienen en memoria al mismo tiemp
 
 **Tiempo de ejecución:** minimizar el tiempo total que le toma a un proceso ejecutar completamente.
 
-**Rendimiento (throughput):** maximizar el número de procesos terminados por unidad de tiempo. Para minimizzarlo se podría ver de implementear SJF (Shortest Job First)
+**Rendimiento (throughput):** maximizar el número de procesos terminados por unidad de tiempo. Para minimizarlo se podría ver de implementear SJF (Shortest Job First).
 
 **Liberación de recursos:** hacer que terminen cuanto antes los procesos que tiene reservados más recursos.
 
@@ -98,11 +100,9 @@ Muchos procesos (técnicamente sus PCB's) se mantienen en memoria al mismo tiemp
 
 **Programa intesivo en CPU:** Suele tener pocas ráfagas de CPU largas.
 
-**Scheduler del SO:** Responsable de seleccionar un proceso de todos los que esten ready y darle CPU para que se procese.
+**Scheduler nonpreemptive o cooperativo:** Sin desalojo. Una vez el proceso obtiene la CPU se ejecuta hasta liberarla de forma voluntaria (puede haber terminado o pasar a un estado waiting).
 
-**Nonpreemptive o cooperativo:** Sin desalojo. Una vez el proceso obtiene la CPU se ejecuta hasta liberarla de forma voluntaria (puede haber terminado o pasar a un estado waiting).
-
-**Preemptive o no cooperativo:** Con desalojo.  Se vale de la interrupción del clock para decidir si el proceso actual debe seguir ejecutándose o le toca a otro. El scheduler puede determinar cuando sacarle la CPU a un proceso.
+**Scheduler preemptive o no cooperativo:** Con desalojo.  Se vale de la interrupción del clock para decidir si el proceso actual debe seguir ejecutándose o le toca a otro. El scheduler puede determinar cuando sacarle la CPU a un proceso.
 
 ### Criterios y objetivos de scheduler
 
@@ -179,14 +179,14 @@ El tiempo que pasa entre que ocurre un evento hasta que el proceso RT se ejecuta
 **Sección crítica:** Llamamos sección crítica a la parte del programa que accede a memoria compartida, y queremos que ejecute atómicamente.
 
 - Solo hay un proceso a la vez en CRIT.
-- Todo ṕroceso que esté esperando entrar a CRIT va a entrar.
+- Todo proceso que esté esperando entrar a CRIT va a entrar.
 - Ningún proceso fuera de CRIT puede bloquear a otro.
 
 **TestAndSet (TAS):** Establece atómicamente el valor de una variable entera en 1 (el lugar de memoria que utiliza lo determinás vos en un lugar de la memoria compartida). Es para saber si un proceso puede o no entrar a una sección crítica.
 
 **Busy waiting:** Gastar CPU cuando no es necesario (Poner en un while una función de testandset()).
 
-**sleep():** Syscall que se utiliza para no hacer busy waiting (la solución más básica).
+`sleep()`: Syscall que se utiliza para no hacer busy waiting (la solución más básica).
 
 **Operación atómica:** No puede ser interrumpida por el procesador hasta que termine.
 
@@ -200,7 +200,7 @@ El tiempo que pasa entre que ocurre un evento hasta que el proceso RT se ejecuta
 
 **Deadlock:** Se traban los procesos entre sí esperando al otro.
 
-**Condiciones de Coffman:** condiciones para la existencia de un deadelock:
+**Condiciones de Coffman** - condiciones para la existencia de un deadlock:
 
 - **Exclusión mutua:** Un recurso no puede estar asignado a más de un proceso.
 - **Hold and wait:** Los procesos que ya tienen algún recurso pueden solicitar otro.
@@ -239,7 +239,7 @@ El **espacio de direcciones** (es una vista privada de la memoria) de cada proce
   - `malloc()` para reservar.
   - `free()` para liberar.
 
-**Fragmentación:** Tener memoria suficiente para atender una solicitud pero no es continua (hay interna de los bloques y externa), compactar es costoso. Soluciones pueden ser bitmap de la memoria en bloques de igual tamaño (no muy usada), lista enlazada es la otra.
+**Fragmentación:** Tener memoria suficiente para atender una solicitud pero no es continua (puede ser interna de los bloques y/o externa), compactar es costoso. Soluciones pueden ser bitmap de la memoria en bloques de igual tamaño (no muy usada), lista enlazada es la otra.
 
 **Lista enlazada:** Cada nodo representa a un proceso o bloque libre, donde figuran el tamaño del bloque y sus límites.
 
@@ -251,7 +251,7 @@ El **espacio de direcciones** (es una vista privada de la memoria) de cada proce
 
 Para correr programas que no requieren todo ya y todo el tiempo se podría combinar swapping con virtualización del espacio de direcciones -> **memoria virtual**. Se usa la unidad **Memory Management Unit (MMU)**.
 
-**Memory managment Unit (MMU):** Se ocupa de la traducción de direcciones virtuales a físicas. Sus objetivos son:
+**Memory Managment Unit (MMU):** Se ocupa de la traducción de direcciones virtuales a físicas. Sus objetivos son:
 
   - **Facilitar el uso de la memoria:** los programadores no tienen que gestionar manualmente la ubicación de código y datos.
   - **Transparencia**: los programas no saben que su memoria es virtual.
@@ -329,7 +329,7 @@ Varios procesos pueden querer **ejecutar el driver a la vez**, por esto se gener
 
 Tenemos **primitivas de sincronización** (las cuales se encargan de la sincronización de recursos compartidos por distintos procesos o threads). Estas y las **estructuras de datos** que pueda llegar a necesitar se inicializan al cargar el driver en el kernel.
 
-Un driver no se linkea conta bibliotecas, asi que solo se pueden usar funciones que sean parte del kernel, por lo que las primitivas y estructuras de datos se deben inicializar al cargar el driver en el kernel.
+Un driver no se linkea contra bibliotecas, asi que solo se pueden usar funciones que sean parte del kernel, por lo que las primitivas y estructuras de datos se deben inicializar al cargar el driver en el kernel.
 
 **Módulo:** Piezas de código que pueden ser cargados/descargados en el kernel en tiempo de ejecución para extender la funcionalidad  sin necesidad de reiniciar el sistema.
 
@@ -349,13 +349,12 @@ arbitrario).
 
 Una de las funciones del SO, en tanto **API** de programación, es brindar un acceso consistente a toda la fauna de dispositivos ocultando las particularidades de cada uno de ellos tanto como sea posible. (todo es un archivo)
 
-La **planificación de disco** se trata de cómo manejar la cola de pedidos de E/S para lograr el mejor rendimiento posible.  
-Además del ancho de banda y la latencia rotacional lo más importante es el **seek time**, que es el tiempo necesario para que la cabeza se ubique sobre el cilindro que tiene el sector buscado.
+La **planificación de disco** se trata de cómo manejar la cola de pedidos de E/S para lograr el mejor rendimiento posible. Además del ancho de banda y la latencia rotacional lo más importante es el **seek time**, que es el tiempo necesario para que la cabeza se ubique sobre el cilindro que tiene el sector buscado.
 
 **Políticas de scheduling de E/S a disco:**
-- FIFO/FCFS -> Problema es que la cabeza va como bola sin manija.
-- SSTF (Shotest Seek Time First)-> Puede generar starvation.
-- Algoritmo de scan/elevator (Atiende los que le quedan para un lado y después los del otro)
+- FIFO/FCFS: Problema es que la cabeza va como bola sin manija.
+- SSTF (Shotest Seek Time First): Puede generar starvation.
+- Algoritmo de scan/elevator: Atiende los que le quedan para un lado y después los del otro.
 - En la práctica ninguno se hace de manera pura, hay prioridades.
 
 **Spooling** es una forma de manejar a los dispositivos que requieren acceso dedicado en sistemas multiprogramados. Se designa pej a otro proceso a que se encargue de ser dedicado ponele. Pej la impresora. Se entera el usuario que se hace spooling, no el kernel. **Simultaneous Peripheral Operation On-Line**. Mantiene una cola de archivos enviados. Se atienden uno a la vez.
@@ -373,7 +372,7 @@ Estrategias de protección:
 - Backup: Resguardar lo importante en otro lado - Copias totales, incrementales (copia desde la última incremental), diferenciales (copia desde la última total)  
 Para restaurar diferenciales es última copia total + última diferencial, para incrementales necesito última total y todas las incrementales entre la última total y la fecha requerida.
 
-A veces no alcanza solo una copia, un método común para implementar redunjdancia es **RAID (Redundant Array of Inexpensive Disks)** - se copia todo en los dos. Hay varios niveles de RAID.
+A veces no alcanza solo una copia, un método común para implementar redundancia es **RAID (Redundant Array of Inexpensive Disks)** - se copia todo en los dos. Hay varios niveles de RAID.
 
 **RAID 0 - stripping** No da redundancia, mejora rendimiento.
 
@@ -385,9 +384,9 @@ A veces no alcanza solo una copia, un método común para implementar redunjdanc
 
 **RAID 2** Todos los discos participan de todas las E/S, lo que lo hace más lento. Tiene 3 discos por cada 4 dedicados a error correction a nivel de bits con un Hamming code. Hace stripping a nivel de bit.
 
-**RAID 3** tiene por cada 3 de data 1 disco de parity a nivel de byte
+**RAID 3** Tiene por cada 3 de data 1 disco de parity a nivel de byte
 
-**RAID 4** como RAID 3 pero hace stripping a nivel de bloque.
+**RAID 4** Como RAID 3 pero hace stripping a nivel de bloque.
 
 **RAID 5** Cada bloque de cada archivo va a un disco distinto, para cada bloque un disco tiene los datos y otro tiene la información de paridad. Soporta la pérdida de un disco cualquiera
 
@@ -399,15 +398,15 @@ RAID se combina con copias de seguridad.
 
 ## File systems
 
-BIOS/UEFI: Inicializa hardware básico.
+**BIOS/UEFI:** Inicializa hardware básico.
 
-Cargador de arranque (ej. GRUB): Selecciona y carga el kernel.
+**Cargador de arranque:** Selecciona y carga el kernel (pej. GRUB).
 
-Kernel: Inicializa el sistema operativo.
+**Kernel:** Inicializa el sistema operativo.
 
-Init/Systemd: Arranca los servicios del sistema.
+**Init/Systemd:** Arranca los servicios del sistema.
 
-Login: Usuario puede iniciar sesión.
+**Login:** Usuario puede iniciar sesión.
 
 **Archivo:** Secuencia de bytes, sin estructura
 
@@ -424,8 +423,6 @@ Responsabilidad del FS:
 - Cómo se representa un archivo
   - Cómo gestiono el espacio libre
   - Qué hago con los metadatos
-
-**Link:** Alias para un archivo (La estructura externa pasa de un árbol a un grafo dirigido)
 
 El FS determina cómo se nombrará a los archivos:
 - Caracteres de separación de directorio.
@@ -448,6 +445,7 @@ Para un FS un archivo es una lista de bloques + metadata.
 El inodo del directorio root es distinguido: es siempre el inodo número 2 en Ext2.
 
 **Ext2**
+
 ![alt text](Ext2.png)
 
 Pára encontrar un inodo específico del cual sé el nro (n):
@@ -457,7 +455,7 @@ Pára encontrar un inodo específico del cual sé el nro (n):
 - i / inodos_por_bloque = bloque_del_inodo
 - Del bloque_del_inodo busco el offset (i mod inodos_por_bloque).
 
-Links:
+**Link:** Alias para un archivo (La estructura externa pasa de un árbol a un grafo dirigido) tipos:
 
 - **Hard links:** Crean otro nombre para el mismo inodo, sin duplicar datos. Se piede hacer en inodos porque no contienen el nombre del archivo ligado. Se tiene registro de cuantas referencias tiene cada inodo. No pueden hacerse en directorios o entre distintos sistemas de archivos.
 
@@ -489,7 +487,7 @@ Performance dependa de:
 - Manejo general de locking en el kernel.
 - FS
 
-**NFS (Network FS):** Protocolo que permite acceder a FS remotos como si fueran locales, usando RPC. Para soportar esto, los SO usan una capa llamada _Virtual File System_. Esta capa tiene vnodes por cada archivo abierto, se corresponden con inodos, si el archivo es locas, y si es remoto se almacena otra información.
+**NFS (Network FS):** Protocolo que permite acceder a FS remotos como si fueran locales, usando RPC. Para soportar esto, los SO usan una capa llamada _Virtual File System_. Esta capa tiene vnodes por cada archivo abierto, se corresponden con inodos, si el archivo es local, y si es remoto se almacena otra información.
 
 ![UBA-SO-2C2025/Final/Network FS.png](<Network FS.png>)
 
@@ -528,7 +526,7 @@ AAA:
 
 Matriz de control de accesos (sujetos x objetos) con entradas de permisos en cada celda. - **Discretionary Access Control - DAC**
 
-**MAC: Mandatory Access Control:** Para manejar información altamente sensible, cada sujeto tiene un grado. Los objetos creados heredan el grado del último sujeto que los modificó.
+**MAC (Mandatory Access Control):** Para manejar información altamente sensible, cada sujeto tiene un grado. Los objetos creados heredan el grado del último sujeto que los modificó.
 
 d rwx r-x r-x -> En UNIX (owner/group/user)
 
@@ -582,7 +580,7 @@ Def: Es la posibilidad de que un conjunto de recursos físicos se vean como vari
 - Nace para evitar los problemas de:  
   - Ring aliasing: Programas para modo kernel ejecutados en modo usuario.
   - Address-space compression: Que la máquina virtual no pise la memoria del propio emulador. Desde el punto de vista del anfitrión sos un único proceso.
-  - Non-faulting access to rpivileged state: Algunas instrucciones privilegiadas generan un trap cuando se ejecultan sin permiso.
+  - Non-faulting access to privileged state: Algunas instrucciones privilegiadas generan un trap cuando se ejecultan sin permiso.
   - Interrupt virtualization: Hay que simularle las interrupciones la SO huésped.
   - Access to hidden state: Parte del estado del procesador no es consultable por SW.
   - Ring compression: No hay protección entre el kernel y programas de usuario.
