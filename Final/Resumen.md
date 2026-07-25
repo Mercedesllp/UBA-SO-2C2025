@@ -6,7 +6,7 @@
 
 **Proceso:** Instancia de un programa que está en ejecución, incluyendo su estado y recursos asignados.
 
-En Linux se puede enviar señales desde un proceso no root a uno root, ya que divide los privilegios tradicionalmente asociados con root en distintas unidades llamadas *capabilities*, que pueden ser habilitadas o deshabilitadas.
+En Linux se puede enviar señales desde un proceso no root a uno root, ya que divide los privilegios tradicionalmente asociados con root en distintas unidades llamadas **capabilities**, que pueden ser habilitadas o deshabilitadas.
 
 **Capabilities:** Los procesos pueden ser privilegiados o no privilegiados. Las capabilities son las unidades resultantes de la división de privilegios tradicionalmente con root, que pueden ser habilitadas o deshabilitadas.
 
@@ -568,7 +568,7 @@ Algunos SO implementan uno o más mecanismos para protegerse:
 
 ## Virtualización
 
-Def: Es la posibilidad de que un conjunto de recursos físicos se vean como varias copias de recursos lógicos.
+**Definición:** Es la posibilidad de que un conjunto de recursos físicos se vean como varias copias de recursos lógicos.
 
 ![alt text](virtualization.png)
 
@@ -589,9 +589,9 @@ Def: Es la posibilidad de que un conjunto de recursos físicos se vean como vari
 - Para solucionar esto en Intel se agregaron al procesador las extenciones VT-x (VMX root, VMX non-root). Se agrega la Virtual Machine Control Structure (en memoria) tiene los estados de ambos y campos de control para ver qué interrupciónes, puertos de E/S recibe el huésped.
 
 **Contenedores:** No son una virtualización completa. Cada imagen se construye en capas (base, dependencias, app, configuraciones). Los componentes fundamentales son:
-- Namespaces: (Aislamiento) Proveen aislamiento entre procesos.
-- Cgroups: Permiten limitar y contabilizar recursos.
-- Layered FS: Modelo donde se apilan capas de solo lectura y una capa superior de escritura. Cada capa representa cambios respecto a la anterior.
+- **Namespaces:** (Aislamiento) Proveen aislamiento entre procesos.
+- **Cgroups:** Permiten limitar y contabilizar recursos.
+- **Layered FS:** Modelo donde se apilan capas de solo lectura y una capa superior de escritura. Cada capa representa cambios respecto a la anterior.
 
 Una imágen de Docker es una plantilla inmutable usada para crear contenedores. Contiene todo lo necesario para ejecutar una aplicación (código, dependencias, herramientas, bibliotecas y configuración). Son capas que se apilan sobre una capa base común.
 
@@ -602,8 +602,6 @@ Una imágen de Docker es una plantilla inmutable usada para crear contenedores. 
 Orquestación de aplicaciones contenerizadas:
 - Kubernetes: Plataforma de código abierto para automatizar la implementación, el escalado y la administración de alplicaciones en contenedores.
 - Openshift (y OKD): Usa Kubernetes de base, agrega restricciones de seguridad por defecto, interfaz web más completa, manejo de roles, facilidades para el desarrollador.
-
-Cloud ver
 
 Trusted Excecution Enviroment: Área protegida dentro de un CPU, ejecuta código y protege datos confidenciales.
 
