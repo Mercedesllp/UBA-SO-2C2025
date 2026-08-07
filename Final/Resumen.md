@@ -434,7 +434,7 @@ El FS determina cómo se nombrará a los archivos:
 
 Para un FS un archivo es una lista de bloques + metadata.
 
-**FAT - File Allocation Table** usa una tabla que por cada bloque del archivo me dice en qué bloque está el siguiente elemento. Lo malo es que tengo que tener toda la tabla en memoria (inmanejable enn discos grandes), es poco robusto, si el sistema cae, la tabla estaba en memori y también pasa que no maneja seguridad.
+**FAT - File Allocation Table** usa una tabla que por cada bloque del archivo me dice en qué bloque está el siguiente elemento. Lo malo es que tengo que tener toda la tabla en memoria (inmanejable enn discos grandes), es poco robusto, si el sistema cae, la tabla estaba en memoria y también pasa que no maneja seguridad.
 
 ![alt text](FAT.png)
 
@@ -595,12 +595,12 @@ Algunos SO implementan uno o más mecanismos para protegerse:
 
 Una imágen de Docker es una plantilla inmutable usada para crear contenedores. Contiene todo lo necesario para ejecutar una aplicación (código, dependencias, herramientas, bibliotecas y configuración). Son capas que se apilan sobre una capa base común.
 
-**OCI (Open Cantainer Initiative):** Estándar abierto para contenedores. Define dos especificaciones principales:
+**OCI (Open Container Initiative):** Estándar abierto para contenedores. Define dos especificaciones principales:
 - OCI Image Spec
 - OCI Runtime Spec
 
 Orquestación de aplicaciones contenerizadas:
-- Kubernetes: Plataforma de código abierto para automatizar la implementación, el escalado y la administración de alplicaciones en contenedores.
+- Kubernetes: Plataforma de código abierto para automatizar la implementación, el escalado y la administración de aplicaciones en contenedores.
 - Openshift (y OKD): Usa Kubernetes de base, agrega restricciones de seguridad por defecto, interfaz web más completa, manejo de roles, facilidades para el desarrollador.
 
 Trusted Excecution Enviroment: Área protegida dentro de un CPU, ejecuta código y protege datos confidenciales.
